@@ -1,29 +1,30 @@
 public class AiEngine {
 
-    private int row, col;
+    private char mark;
 
 
-    public AiEngine() {
-
-    }
-
-    public AiEngine(Board board) {
+    public AiEngine(char mark) {
+        this.mark = mark;
 
     }
 
 
-    public boolean checkWin() {
-
+    public boolean checkWin(Board board, Player player) {
+        for (int i = 0, i < board.l
     }
 
 
 
-    public void blockPlayer() {
+    public boolean blockPlayer(Board board, Player player) {
 
     }
 
 
-    public void chooseCenter() {
+    public void chooseCenter(Board board) {
+
+    }
+
+    public void ramdomMark() {
 
     }
 }
