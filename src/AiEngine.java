@@ -10,7 +10,7 @@ public class AiEngine {
 
 
     public boolean checkWin(Board board, Player player) {
-        for (int i = 0, i < board.l
+        for (int i = 0, i < board, i++){}
     }
 
 
