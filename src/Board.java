@@ -13,16 +13,23 @@ public class Board {
 
 
     public void printMatrix() {  //sirve para imprimir directamente, no necesita un sout en Main
+        printHeader();
         for (int i = 0; i < matrix.length; i++){
+            System.out.print((i + 1));
             for (int j = 0; j < matrix.length; j++){
+                if (getCell(i,j) == ' '){
+                    System.out.print(" ");
+                }else{
+                    System.out.print(getCell(i,j));
+                }
                 System.out.print(matrix[i][j]);
-                if (j < 2) {
+                if (j < 3) {
                     System.out.print(" | ");
                 }
             }
             System.out.println();
             if ( i < 2){
-                System.out.println("----------");
+                System.out.println("---------------");
             }
         }
     }
@@ -31,15 +38,12 @@ public class Board {
     public char getCell(int row, int col){
         return matrix[row][col];
     }
-    public void setCell(int row, int col){
-        this.matrix = matrix[row][col];
-    }
 
 
-    static void printHeader(){
-        System.out.println(" ");
-        for (int i = 0; i <= LENGTH; i++){
-            System.out.println(i + " ");
+    void printHeader(){
+        System.out.print(" ");
+        for (int i = 0; i < LENGTH; i++){
+            System.out.print(" " + (i + 1) + "   ");
         }
         System.out.println();
     }
