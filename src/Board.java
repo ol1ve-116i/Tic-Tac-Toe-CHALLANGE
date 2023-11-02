@@ -1,7 +1,7 @@
 public class Board {
-    private char[][] matrix = new char[3][3];
 
-
+    public static final int LENGTH = 3;
+    private char[][] matrix = new char[LENGTH][LENGTH];
 
     public Board() {
         for (int i = 0; i < matrix.length; i++){
@@ -28,8 +28,19 @@ public class Board {
     }
 
 
-    while (Board = ) {
-
+    public char getCell(int row, int col){
+        return matrix[row][col];
+    }
+    public void setCell(int row, int col){
+        this.matrix = matrix[row][col];
     }
 
+
+    static void printHeader(){
+        System.out.println(" ");
+        for (int i = 0; i <= LENGTH; i++){
+            System.out.println(i + " ");
+        }
+        System.out.println();
+    }
 }
