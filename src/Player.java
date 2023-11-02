@@ -1,32 +1,24 @@
 public class Player {
-    private int shoot;
-    private int p1;
-    private int p2;
-    private int currentPlayer = p1;
+    private String playerName;
+    private char symbol;
 
-    private boolean gameOver = false;
+    private boolean ai;
 
-    public Player(int shoot, int currentPlayer, int p1, int p2, boolean gameOver) {
-        this.shoot = shoot;
-        this.currentPlayer = currentPlayer;
-        this.gameOver = gameOver;
-        this.p1 = p1;
-        this.p2 = p2;
+    public Player(String playerName,char symbol, Boolean ai) {
+        this.playerName = playerName;
+        this.symbol = symbol;
+        this.ai = ai;
     }
 
-    public int getShoot() {
-
-        return shoot;
+    public String getPlayerName() {
+        return playerName;
     }
 
-    private int getCurrentPlayer() {
-        if (currentPlayer == p1) {
-            currentPlayer = p2;
-        } else {
-            currentPlayer = p1;
-        }
-        return currentPlayer;
+    public char getSymbol() {
+        return symbol;
     }
 
-
+    public boolean isAi() {
+        return ai;
+    }
 }

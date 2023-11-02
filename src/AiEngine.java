@@ -9,8 +9,13 @@ public class AiEngine {
     }
 
 
-    public boolean checkWin(Board board, Player player) {
-        for (int i = 0, i < board.l
+    public boolean checkWin(Board board, Player) {
+        for (int i = 0; i < board.; i++){
+            for (int i = 0; i < logncol; j++) {
+                if (board.getCasilla() = VACIA o ESTA LLENA o de que jugador es);
+                matrix[i][j]
+            }
+        }
     }
 
 
