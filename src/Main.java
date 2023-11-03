@@ -67,7 +67,7 @@ public class Main {
         char[][] matrix = new char[3][3];
         Board board = new Board();
         boolean gameOver = false;
-        char player = 'X';
+        Player player = new Player(player1.getPlayerName(), player1.getSymbol(), false);
         Scanner inputValue = new Scanner(System.in);
 
         while (!gameOver) {
@@ -78,15 +78,15 @@ public class Main {
             col = inputValue.nextInt() - 1;
 
             if (row >= 0 && row < 3 && col >= 0 && col < 3 && matrix[row][col] == ' ') {
-                matrix[row][col] = player;
-                gameOver = board.checkWin(matrix, player);
+                matrix[row][col] = player.getSymbol();
+                gameOver = board.checkWin(matrix, player.getSymbol());
                 if (gameOver) {
                     System.out.println("Player " + player + " you win!");
                 } else {
-                    if (player == 'X') {
-                        player = '0';
+                    if (player.getSymbol() == 'X') {
+                        player1Symbol = '0';
                     } else {
-                        player = 'X';
+                        player2Symbol = 'X';
                     }
                 }
                 if (!board.checkWin(matrix, player) && board.checkDraw(matrix)) {
@@ -96,5 +96,5 @@ public class Main {
                 board.printMatrix();
             }
         }
-    }
+    }2
 }
