@@ -1,6 +1,7 @@
 public class Board {
 
     public static final int LENGTH = 3;
+    public static final int EMPTY = ' ';
     private char[][] matrix = new char[LENGTH][LENGTH];
 
     public Board() {
@@ -11,12 +12,12 @@ public class Board {
         }
     }
 
-    public static void printMatrix() {  //sirve para imprimir directamente, no necesita un sout en Main
+    public void printMatrix() {  //sirve para imprimir directamente, no necesita un sout en Main
         printHeader();
         for (int i = 0; i < matrix.length; i++){
             System.out.print((i + 1));
             for (int j = 0; j < matrix.length; j++){
-                if (getCell(i,j) == ' '){
+                if (getCell(i,j) == EMPTY){
                     System.out.print(" ");
                 }else{
                     System.out.print(getCell(i,j));
@@ -51,7 +52,7 @@ public class Board {
         System.out.println();
     }
 
-    public boolean checkWin(char[][] matrix, char player) {
+    public static boolean checkWin(char[][] matrix, char player) {
         //check Row
         for (int row = 0; row < matrix.length; row++) {
             if (matrix[row][0] == player && matrix[row][1] == player && matrix[row][2] == player) {
@@ -74,7 +75,7 @@ public class Board {
         return false;
     }
 
-    public boolean checkDraw(char[][] matrix){
+    public static boolean checkDraw(char[][] matrix){
         for(int row = 0; row < matrix.length; row++){
             for(int col = 0; col < matrix.length; col++){
                 if(matrix[row][col] == ' '){
