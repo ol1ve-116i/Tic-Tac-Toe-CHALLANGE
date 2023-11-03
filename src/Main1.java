@@ -29,13 +29,13 @@ public class Main1 {
             }
 
         System.out.println("Enter the name of the first player");
-        p1 = input.nextLine();
+        p1 = input.next();
 
         if (gameOp) {
             p2 = "AI";
         } else {
             System.out.println("Now enter the name of the second player");
-            p2 = input.nextLine();
+            p2 = input.next();
         }
 
         System.out.println("Select the symbol for " + p1 + " (The second player will have " +
