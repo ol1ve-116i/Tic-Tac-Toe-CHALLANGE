@@ -2,84 +2,38 @@ import java.util.Scanner;
 
 public class Main2 {
     public static void main(String[] args) {
-        boolean gameActive = true;
-        char currentPlayer = 'X';
+        char[][] matrix = new char[Board.LENGTH][Board.LENGTH];
+        boolean gameOver = false;
+        char player = 'X';
         Scanner inputValue = new Scanner(System.in);
 
-
-        while (gameActive) {
+        while (!gameOver) {
             int row, col;
-            System.out.println("Player " + currentPlayer + ", enter your move (row and column): ");
+            Board.printMatrix();
+            System.out.println("Player " + player + ", enter your move (row and column): ");
             row = inputValue.nextInt() - 1;
             col = inputValue.nextInt() - 1;
 
-            if (isValidMove(row, col)) {
-                board[row][col] = currentPlayer;
-                Board.printMatrix();
-                if (checkRowWin == true) {
-                    System.out.println(currentPlayer + "you win!");
-                    gameActive = false;
-                } else if (checkColWin == true) {
-                    System.out.println(currentPlayer + "you win!");
-                    gameActive = false;
+            if (row >= 0 && row < Board.LENGTH && col >= 0 && col < Board.LENGTH && matrix[row][col] == ' ') {
+                matrix[row][col] = player;
+                gameOver = Board.checkWin(matrix, player);
+                if (gameOver) {
+                    System.out.println("Player " + player + " you win!");
                 } else {
-                    System.out.println("It's a draw");
-                }
-            } else {
-                System.out.println("Invalid move. Enter again row and column: ");
-            }
-            currentPlayer = currentPlayer ? 'X' : '0';
-        }
-
-        public boolean isValidMove(int row, int col){
-            return row >= 0 && row < board.LENGTH && col >= 0 && col < board.LENGTH && board[row][col] == EMPTY;
-        }
-
-        public boolean checkRowWin(int row, char player) {
-            for (int i = 0; i < board.LENGTH; i++) {
-                if (board[row][i] == player) {
-                    return true;
-                }
-            }
-            return false;
-        }
-        public boolean checkColWin(int col, char player) {
-            for (int i = 0; i < board.LENGTH; i++) {
-                if (board[i][col] == player) {
-                    return true;
-                }
-            }
-            return false;
-        }
-        public boolean checkDiagonalWin(int row, int col, char player){
-            for (int row = 0; row < board.LENGTH; row++) {
-                for (int col = 0; col < board.LENGTH; col++) {
-                    if (board[0][0] == player && board[1][1] == player && board[2][2] == player) {
-                        return true;
+                    if (player == 'X') {
+                        player = '0';
+                    } else {
+                        player = 'X';
                     }
                 }
+                if (!Board.checkWin(matrix, player) && Board.checkDraw(matrix)) {
+                    System.out.println("Game Draw !!!");
+                    break;
+                }
+                Board.printMatrix();
             }
-            return false;
+        }
 
-            for (int col = 2; col >= board.LENGTH; col--) {
-                for (int row = 2; row >= board.LENGTH; row--) {
-                    if (board[2][0] == player && board[1][1] == player && board[0][2] == player) {
-                        return true;
-                    }
-                }
-            }
-            return false;
-        }
-        public boolean checkDraw() {
-            for (int row = 0; row < board.LENGTH; row++) {
-                for (int col = 0; col < board.LENGTH; col++) {
-                    if (board[row][col] == board.EMPTY) {
-                        return false;
-                    }
-                }
-            }
-            return true;
-        }
     }
-}
 
+}
