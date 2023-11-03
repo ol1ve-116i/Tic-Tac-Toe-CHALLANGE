@@ -62,5 +62,39 @@ public class Main {
 
         System.out.println(player1.getPlayerName() + ", whit the symbol " + player1Symbol[charOpt] + " is the player one, and "
                 + player2.getPlayerName() + ", whit the symbol " + player2Symbol[charOpt2] + " is the player two");
+
+
+        char[][] matrix = new char[3][3];
+        Board board = new Board();
+        boolean gameOver = false;
+        char player = 'X';
+        Scanner inputValue = new Scanner(System.in);
+
+        while (!gameOver) {
+            int row, col;
+            board.printMatrix();
+            System.out.println("Player " + player + ", enter your move (row and column): ");
+            row = inputValue.nextInt() - 1;
+            col = inputValue.nextInt() - 1;
+
+            if (row >= 0 && row < 3 && col >= 0 && col < 3 && matrix[row][col] == ' ') {
+                matrix[row][col] = player;
+                gameOver = board.checkWin(matrix, player);
+                if (gameOver) {
+                    System.out.println("Player " + player + " you win!");
+                } else {
+                    if (player == 'X') {
+                        player = '0';
+                    } else {
+                        player = 'X';
+                    }
+                }
+                if (!board.checkWin(matrix, player) && board.checkDraw(matrix)) {
+                    System.out.println("Game Draw !!!");
+                    break;
+                }
+                board.printMatrix();
+            }
+        }
     }
 }
