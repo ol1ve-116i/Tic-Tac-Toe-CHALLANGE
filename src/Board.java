@@ -38,6 +38,10 @@ public class Board {
         return matrix[row][col];
     }
 
+    public void setCell (int row, int col, Player player){
+        matrix[row][col] = player.getSymbol();
+    }
+
 
     void printHeader(){
         System.out.print(" ");
