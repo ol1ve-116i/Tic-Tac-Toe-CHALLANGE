@@ -73,7 +73,7 @@ public class Main1 {
 
 
 
-
+        //turnos
         //private String getCurrentPlayer() {
         //  if (currentPlayer == p1) {
         //    currentPlayer = p2;
