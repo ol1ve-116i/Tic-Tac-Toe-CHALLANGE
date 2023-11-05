@@ -1,5 +1,3 @@
-//import java.awt.desktop.AboutEvent;
-
 public class AiEngine extends Player {
     private String playerName = "AI";
     private char symbol = 'O';
@@ -7,7 +5,7 @@ public class AiEngine extends Player {
     public AiEngine() {
         super("AI", 'O',true);
     }
-    public AiEngine (String playerName,char symbol, Boolean ai) {
+    /*public AiEngine (String playerName,char symbol, Boolean ai) {
         this.playerName = playerName;
         this.symbol = symbol;
         this.ai = ai;
@@ -22,7 +20,7 @@ public class AiEngine extends Player {
     }
     public boolean isAi() {
         return ai;
-    }
+    }*/
 
     public void aiMoveTurn (Board board, Player humanPlayer, AiEngine aiPlayer) {
         if (goForWin(board, aiPlayer, aiPlayer)) { //goForwin
@@ -142,7 +140,7 @@ public class AiEngine extends Player {
                 if (board.getCell(2, col)!= board.EMPTY) {
                     board.setCell(2, col, aiPlayer.getSymbol());
                     wasDone = true;
-                    //System.out.println("aicolmv1");
+                    System.out.println("aicolmv1");
                     break;
                 }
             }
@@ -150,7 +148,7 @@ public class AiEngine extends Player {
                 if (board.getCell(0, col)!= board.EMPTY) {
                     board.setCell(0, col, aiPlayer.getSymbol());
                     wasDone = true;
-                    //System.out.println("aicolmv2");
+                    System.out.println("aicolmv2");
                     break;
                 }
             }
@@ -158,7 +156,7 @@ public class AiEngine extends Player {
                 if (board.getCell(1, col)!= board.EMPTY) {
                     board.setCell(1, col, aiPlayer.getSymbol());
                     wasDone = true;
-                    //System.out.println("aicolmv3");
+                    System.out.println("aicolmv3");
                     break;
                 }
             }
