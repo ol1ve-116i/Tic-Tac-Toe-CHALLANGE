@@ -3,22 +3,28 @@ import java.util.Scanner;
 public class Main6 {
     public static void main(String[] args) {
 
+        String p1, p2;
         boolean gameOver = false;
         int gameTurn = 0;
         int gameMode;
         Scanner inputValue = new Scanner(System.in);
         Board board = new Board();
 
-        System.out.println("Welcome to TICTACTOE Game!");
-        String p1, p2;
-        System.out.println("Player 1. Enter your name: ");
-        p1 = inputValue.nextLine();
-        System.out.println("Player 2. Enter your name: ");
-        p2 = inputValue.nextLine();
+        System.out.println("Welcome to the TICTACTOE Game!");
 
-
-        System.out.print("Enter (1) for 1vs1, and (2) for 1vsAI: ");
+        System.out.print("Enter (1) for 1vs1, or (2) for 1vsAI: ");
         gameMode = inputValue.nextInt();
+
+        System.out.println("Player 1. Enter your name: ");
+        p1 = inputValue.next();
+
+        if (gameMode == 1) {
+            System.out.println("Player 2. Enter your name: ");
+            p2 = inputValue.next();
+        } else {
+            p2 = "AI";
+        }
+
 
         Player player1 = new Player(p1, 'X', false);
         //Player player2 = new Player("P2", 'O', false);
@@ -75,6 +81,36 @@ public class Main6 {
             }
         }
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
    /* private static void aiGame(boolean gameOver, Board board, int gameTurn, Player player1, Player player2) {
         while (!gameOver) {
