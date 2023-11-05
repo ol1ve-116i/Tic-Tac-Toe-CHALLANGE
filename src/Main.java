@@ -1,100 +1,153 @@
 import java.util.Scanner;
-
 public class Main {
     public static void main(String[] args) {
-        int gameOpt, charOpt, charOpt2;
-
-        boolean gameOp;
-
+        boolean gameOver = false;
+        int gameTurn = 0;
+        int gameMode;
+        Scanner inputValue = new Scanner(System.in);
+        Board board = new Board();
         String p1, p2;
 
-        char player1Symbol[] = {'X', 'O'};
-        char player2Symbol[] = {'X', 'O'};
-
-        Scanner input = new Scanner(System.in);
-
-        System.out.println("***Welcome to TIC-TAC-TOE the game!***");
-        System.out.println();
-        System.out.println("Select a option (type the number of the option)");
-        System.out.println();
-        System.out.println("(1) | 1 Player mode (vs AI)");
-        System.out.println("(2) | 2 Player mode");
-
-        gameOpt = input.nextInt();
-
-        if (gameOpt == 1) {
-            gameOp = true;
-        } else {
-            gameOp = false;
-        }
+        System.out.println("Welcome to TICTACTOE Game!");
+        System.out.print("Enter (1) for 1vs1, and (2) for 1vsAI: ");
+        gameMode = inputValue.nextInt();
 
         System.out.println("Enter the name of the first player");
-        p1 = input.next();
+        p1 = inputValue.next();
 
-        if (gameOp) {
-            p2 = "AI";
-        } else {
+        if (gameMode == 1) {
             System.out.println("Now enter the name of the second player");
-            p2 = input.next();
-        }
-
-        System.out.println("Select the symbol for " + p1 + " (The second player will have " +
-                "the opposite symbol (type the number of the option to select the symbol))");
-
-        System.out.println("(1) | X");
-        System.out.println("(2) | O");
-
-        charOpt = input.nextInt();
-
-        if (charOpt == 1) {
-            charOpt = 0;
-            charOpt2 = 1;
+            p2 = inputValue.next();
         } else {
-            charOpt = 1;
-            charOpt2 = 0;
+            p2 = "AI";
         }
 
-        Player player1 = new Player(p1, player1Symbol[charOpt], gameOp);
-        Player player2 = new Player(p2, player2Symbol[charOpt2], gameOp);
+        Player player1 = new Player(p1, 'X', false);
+        //Player player2 = new Player("P2", 'O', false);
+        //AiEngine aiPlayer = new AiEngine();
+        if (gameMode == 1) {
+            Player player2 = new Player(p2, 'O', false);
+            versusGame(gameOver, board, gameTurn, player1, player2, inputValue);
+        } else {
+            AiEngine aiPlayer = new AiEngine();
+            aiGame(gameOver, board, gameTurn, player1, aiPlayer, inputValue);
+        }
 
-        player1.getPlayerName();
-        player2.getPlayerName();
 
-        System.out.println(player1.getPlayerName() + ", whit the symbol " + player1Symbol[charOpt] + " is the player one, and "
-                + player2.getPlayerName() + ", whit the symbol " + player2Symbol[charOpt2] + " is the player two");
+    }
 
-
-        char[][] matrix = new char[3][3];
-        Board board = new Board();
-        boolean gameOver = false;
-        Player player = new Player(player1.getPlayerName(), player1.getSymbol(), false);
-        Scanner inputValue = new Scanner(System.in);
-
+    private static void versusGame(boolean gameOver, Board board, int gameTurn, Player player1, Player player2, Scanner inputValue) {
+        System.out.println("Entering 2 player Vs. mode//");
+        Player currentPlayer = new Player();
+        gameTurn = 0;
         while (!gameOver) {
             int row, col;
+            boolean checkValues = true;
             board.printMatrix();
-            System.out.println("Player " + player + ", enter your move (row and column): ");
-            row = inputValue.nextInt() - 1;
-            col = inputValue.nextInt() - 1;
+            if (gameTurn % 2 == 0) {   // player 'X' turn
+                currentPlayer = player1;
+            } else {
+                currentPlayer = player2;
+            }
+            do { // checking if it is in a correct position and not taken too
+                System.out.println("Round " + (gameTurn + 1) + "!");
+                System.out.println("Player " + currentPlayer.getPlayerName() + ", type number");
+                System.out.print("row: ");
+                row = inputValue.nextInt() - 1;
+                System.out.print("col: ");
+                col = inputValue.nextInt() - 1;
+                checkValues = (row >= 0 && row <= board.LENGTH && col >= 0 && col <= board.LENGTH);
 
-            if (row >= 0 && row < 3 && col >= 0 && col < 3 && matrix[row][col] == ' ') {
-                matrix[row][col] = player.getSymbol();
-                gameOver = board.checkWin(matrix, player.getSymbol());
-                if (gameOver) {
-                    System.out.println("Player " + player + " you win!");
-                } else {
-                    if (player.getSymbol() == 'X') {
-                        player1Symbol = '0';
+                if (checkValues) {
+                    if (board.getCell(row, col) == Board.EMPTY) {
+                        board.setCell(row, col, currentPlayer.getSymbol());
+                        gameTurn = gameTurn + 1;
                     } else {
-                        player2Symbol = 'X';
+                        System.out.println("Position just taken, type again!");
                     }
+                } else {
+                    System.out.println("Number(s) out the range, type again!");
                 }
-                if (!board.checkWin(matrix, player) && board.checkDraw(matrix)) {
-                    System.out.println("Game Draw !!!");
-                    break;
-                }
+            } while (checkValues && board.getCell(row, col) == Board.EMPTY);
+
+            if (board.checkWin(currentPlayer)) {
                 board.printMatrix();
+                System.out.println("Player " + currentPlayer.getPlayerName() + " wins!");
+                gameOver = true;
+            } else {
+                if (board.checkFull()) {
+                    board.printMatrix();
+                    System.out.println("Game Draw !!!");
+                    gameOver = true;
+                }
             }
         }
-    }2
+    }
+
+    private static void aiGame(boolean gameOver, Board board, int gameTurn, Player humanPlayer, AiEngine aiPlayer, Scanner inputValue) {
+        System.out.println("Entering Player Vs. AI mode//");
+        int row, col;
+        gameTurn = 0;
+        //int row = 0;
+        //int col = 0;
+        Player currentPlayer = humanPlayer;
+        AiEngine currentAi = aiPlayer;
+        while (!gameOver) {
+            boolean checkValues = true;
+            board.printMatrix();
+            if (gameTurn % 2 == 0) {   // player 'X' turn
+                do { // checking if it is in a correct position and not taken too
+                    System.out.println("Round " + (gameTurn + 1) + "!");
+                    System.out.println("Player " + currentPlayer.getPlayerName() + ", type number");
+                    System.out.print("col: ");
+                    row = inputValue.nextInt() - 1;
+                    System.out.print("row: ");
+                    col = inputValue.nextInt() - 1;
+                    checkValues = (row >= 0 && row <= board.LENGTH && col >= 0 && col <= board.LENGTH);
+
+                    if (checkValues) {
+                        if (checkValues) {
+                            if (board.getCell(row, col) == Board.EMPTY) {
+                                board.setCell(row, col, currentPlayer.getSymbol());
+                                gameTurn = gameTurn + 1;
+                            } else {
+                                System.out.println("Position just taken, type again!");
+                            }
+                        } else {
+                            System.out.println("Number(s) out the range, type again!");
+                        }
+                    }
+                    System.out.println(currentPlayer.getPlayerName() + " moved to (" + row + ", " + col + ")");
+                    if (board.checkWin(currentPlayer)) {
+                        board.printMatrix();
+                        System.out.println("Player " + currentPlayer.getPlayerName() + " wins!");
+                        gameOver = true;
+                    } else {
+                        if (board.checkFull()) {
+                            board.printMatrix();
+                            System.out.println("Game Draw !!!");
+                            gameOver = true;
+                        }
+                    }
+                } while (checkValues && board.getCell(row, col) == Board.EMPTY);
+
+            } else { // AI's turn
+                currentAi.aiMoveTurn(board, currentPlayer, currentAi);
+                System.out.println(currentAi.getPlayerName() + " played its turn!");
+                if (board.checkWin(currentAi)) {
+                    board.printMatrix();
+                    System.out.println(currentAi.getPlayerName() + " wins!");
+                    gameOver = true;
+                } else {
+                    if (board.checkFull()) {
+                        board.printMatrix();
+                        System.out.println("Game Draw !!!");
+                        gameOver = true;
+                    }
+                }
+                gameTurn = gameTurn + 1;
+            }
+
+        }
+    }
 }
