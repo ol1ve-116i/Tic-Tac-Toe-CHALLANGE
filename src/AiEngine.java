@@ -8,25 +8,27 @@ public class AiEngine extends Player {
     private char symbol;
     private boolean ai;
 
+    /*public AiEngine() {
+        playerName = "AI";
+        symbol = 'O';
+        ai = true;
+    }*/
     public AiEngine (String playerName,char symbol, Boolean ai) {
-        super(playerName,symbol,ai);
+        this.playerName = playerName;
+        this.symbol = symbol;
+        this.ai = ai;
     }
 
-    /*@Override
-    public String getPlayerName() {
+    /*public String getPlayerName() {
         return playerName;
     }
 
-    @Override
     public char getSymbol() {
         return this.symbol;
     }
-    @Override
     public boolean isAi() {
         return ai;
-    }
-*/
-    //board is checked for NOT_FULL or Winner in Main before any operation
+    }*/
 
     public void aiMoveTurn (Board board, Player currentPlayer, AiEngine aiPlayer) {
         if (goForWin(board, aiPlayer, aiPlayer)) {
@@ -34,27 +36,43 @@ public class AiEngine extends Player {
             if (blockPlayer(board, currentPlayer, aiPlayer)) {
             } else {
                 if (chooseCenter(board, aiPlayer)) {
+                    randomMove(board, aiPlayer);
                 }
             }
-            randomMove(board, aiPlayer);
         }
     }
 
 
     private boolean goForWin(Board board, Player currentPlayer, AiEngine aiPlayer) {
         // here currentPlayer is equal to aiPlayer
-        return ((aiPlayer.aiRowMove(board, currentPlayer, aiPlayer)
-                || aiPlayer.aiColMove(board, currentPlayer, aiPlayer)
-                || aiPlayer.aiPrimaryDiagMove(board, currentPlayer, aiPlayer))
-                || aiPlayer.aiSecondDiagMove(board, currentPlayer, aiPlayer));
+        boolean wasPlayer = false;
+        if (aiPlayer.aiRowMove(board, currentPlayer, aiPlayer)){
+        } else {
+            if (aiPlayer.aiColMove(board, currentPlayer, aiPlayer)) {
+            } else {
+                if (aiPlayer.aiPrimaryDiagMove(board, currentPlayer, aiPlayer)) {
+                } else {
+                    aiPlayer.aiSecondDiagMove(board, currentPlayer, aiPlayer);
+                }
+            }
+        }
+        return wasPlayer;
     }
 
     private boolean blockPlayer(Board board, Player currentPlayer, AiEngine aiPlayer) {
         // here currentPlayer is equal to aiPlayer
-        return ((aiPlayer.aiRowMove(board, currentPlayer, aiPlayer)
-                || aiPlayer.aiColMove(board, currentPlayer, aiPlayer)
-                || aiPlayer.aiPrimaryDiagMove(board, currentPlayer, aiPlayer))
-                || aiPlayer.aiSecondDiagMove(board, currentPlayer, aiPlayer));
+            boolean wasPlayer = false;
+            if (aiPlayer.aiRowMove(board, currentPlayer, aiPlayer)){
+            } else {
+                if (aiPlayer.aiColMove(board, currentPlayer, aiPlayer)) {
+                } else {
+                    if (aiPlayer.aiPrimaryDiagMove(board, currentPlayer, aiPlayer)) {
+                    } else {
+                        aiPlayer.aiSecondDiagMove(board, currentPlayer, aiPlayer);
+                    }
+                }
+            }
+        return wasPlayer;
     }
 
     private boolean chooseCenter(Board board, AiEngine aiPlayer) {
