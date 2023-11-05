@@ -4,6 +4,11 @@ public class Player {
 
     private boolean ai;
 
+    public Player() {
+        playerName = "P";
+        symbol = 'X';
+        ai = false;
+    }
     public Player(String playerName,char symbol, Boolean ai) {
         this.playerName = playerName;
         this.symbol = symbol;
