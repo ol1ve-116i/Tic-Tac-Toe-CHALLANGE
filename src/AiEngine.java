@@ -3,7 +3,7 @@ public class AiEngine extends Player {
     private char symbol = 'O';
     private boolean ai = false;
     public AiEngine() {
-        super("AI", 'O',true);
+        super(playerName, symbol, ai);
     }
     /*public AiEngine (String playerName,char symbol, Boolean ai) {
         this.playerName = playerName;
