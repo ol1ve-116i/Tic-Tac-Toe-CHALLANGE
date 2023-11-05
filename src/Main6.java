@@ -2,6 +2,7 @@ import java.util.Scanner;
 
 public class Main6 {
     public static void main(String[] args) {
+
         boolean gameOver = false;
         int gameTurn = 0;
         int gameMode;
@@ -9,21 +10,26 @@ public class Main6 {
         Board board = new Board();
 
         System.out.println("Welcome to TICTACTOE Game!");
+        String p1, p2;
+        System.out.println("Player 1. Enter your name: ");
+        p1 = inputValue.nextLine();
+        System.out.println("Player 2. Enter your name: ");
+        p2 = inputValue.nextLine();
+
+
         System.out.print("Enter (1) for 1vs1, and (2) for 1vsAI: ");
         gameMode = inputValue.nextInt();
 
-        Player player1 = new Player("P1", 'X', false);
+        Player player1 = new Player(p1, 'X', false);
         //Player player2 = new Player("P2", 'O', false);
         //AiEngine aiPlayer = new AiEngine();
         if (gameMode == 1) {
-            Player player2 = new Player("P2", 'O', false);
+            Player player2 = new Player(p2, 'O', false);
             versusGame(gameOver, board, gameTurn, player1, player2, inputValue);
         } else {
             // AiEngine player2 = new Player("AI", 'O', true);
             //aiGame(gameOver, board, gameTurn, player1, aiPlayer);
         }
-
-
     }
 
     private static void versusGame(boolean gameOver, Board board, int gameTurn, Player player1, Player player2, Scanner inputValue) {
