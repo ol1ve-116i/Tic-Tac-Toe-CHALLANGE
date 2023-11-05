@@ -19,18 +19,18 @@ public class Board {
             System.out.print((i + 1));
             for (int j = 0; j < matrix.length; j++){
                 if (getCell(i,j) == EMPTY){
-                    System.out.print(" ");
+                    System.out.print(matrix[i][j] + " ");
+
                 }else{
-                    System.out.print(getCell(i,j));
+                    System.out.print(" " + getCell(i,j));
                 }
-                System.out.print(matrix[i][j]);
                 if (j < 3) {
-                    System.out.print(" | ");
+                    System.out.print(" |");
                 }
             }
             System.out.println();
             if ( i < 2){
-                System.out.println("---------------");
+                System.out.println("--------------");
             }
         }
         System.out.println();
