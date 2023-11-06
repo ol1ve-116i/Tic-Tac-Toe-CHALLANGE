@@ -2,17 +2,13 @@ public class Player {
     private String playerName;
     private char symbol;
 
-    private boolean ai;
-
     public Player() {
         playerName = "P";
         symbol = 'X';
-        ai = false;
     }
-    public Player(String playerName,char symbol, Boolean ai) {
+    public Player(String playerName,char symbol) {
         this.playerName = playerName;
         this.symbol = symbol;
-        this.ai = ai;
     }
 
     public String getPlayerName() {
@@ -23,7 +19,13 @@ public class Player {
         return symbol;
     }
 
-    public boolean isAi() {
-        return ai;
+    public char readCell (Board board, int row, int col) {
+        return board.getCell(row, col);
+    }
+
+    public void setMove (Board board, Player currentPlayer, int row, int col) {
+        //if (board.getCell(row,col) == board.EMPTY) {
+            board.setCell(currentPlayer, row, col);
+        //}
     }
 }

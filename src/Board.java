@@ -36,29 +36,21 @@ public class Board {
         System.out.println();
     }
 
-
     public char getCell(int row, int col){
         return matrix[row][col];
     }
 
-    public void setCell (int row, int col, char playerSymbol){
-        matrix[row][col] = playerSymbol;
+    public void setCell (Player currentPlayer,int row, int col){
+        matrix[row][col] = currentPlayer.getSymbol();
     }
 
-
-    void printHeader(){
+    public void printHeader(){
         System.out.print(" ");
         for (int i = 0; i < LENGTH; i++){
             System.out.print(" " + (i + 1) + "   ");
         }
         System.out.println();
     }
-
-
-    //public static boolean checkDraw(Board board){
-    // is done by a condicional if (!checkWin(.....) && checkFull(....)) into the Main
-    //}
-
 
     public boolean checkWin (Player currentPlayer) {
         boolean isWinner = false;
@@ -89,13 +81,12 @@ public class Board {
                 && getCell(2,2) == currentSymbol) {
             isWinner = true;
         }
-
+        // check the Opposite diagonal
         if (getCell(0,2) == currentSymbol
                 && getCell(1,1) == currentSymbol
                 && getCell(2,0) == currentSymbol) {
             isWinner = true;
         }
-
 
         return isWinner;
     }
