@@ -10,11 +10,11 @@ public class Main {
             Scanner inputValue = new Scanner(System.in);
             Board board = new Board();
             String p1, p2;
-
             System.out.println("Welcome to <<TIC-TAC-TOE>> Game!");
-            System.out.print("Select '1' for 2-player VS. or '2' for 1-player VS.AI: ");
-            gameMode = inputValue.nextInt();
-
+            do {
+                System.out.print("Select '1' for 2-player VS. or '2' for 1-player VS.AI: ");
+                gameMode = inputValue.nextInt();
+            } while (gameMode!=1 && gameMode!=2);
             if (gameMode == 1) {
                 System.out.println("Loading '2-player' Vs.mode..");
                 System.out.print("* type 1st player's name: ");
@@ -69,7 +69,7 @@ public class Main {
                 row = inputValue.nextInt() - 1;
                 System.out.print("col: ");
                 col = inputValue.nextInt() - 1;
-                checkValues = (row >= 0 && row <= board.LENGTH && col >= 0 && col <= board.LENGTH);
+                checkValues = (row >= 0 && row < board.LENGTH && col >= 0 && col < board.LENGTH);
 
 
                     if (checkValues) {
@@ -83,6 +83,7 @@ public class Main {
                     } else {
                         System.out.println("Number(s) out the range, type again!");
                     }
+                System.out.println("(" + currentPlayer.getPlayerName() + ") moved to (" + (row + 1) + ", " + (col + 1) + ")");
             } while (checkValues && board.getCell(row, col) == Board.EMPTY);
 
 
@@ -117,7 +118,7 @@ public class Main {
                     row = inputValue.nextInt() - 1;
                     System.out.print("col: ");
                     col = inputValue.nextInt() - 1;
-                    checkValues = (row >= 0 && row <= board.LENGTH && col >= 0 && col <= board.LENGTH);
+                    checkValues = (row >= 0 && row < board.LENGTH && col >= 0 && col < board.LENGTH);
 
 
                     if (checkValues) {
@@ -131,7 +132,7 @@ public class Main {
                     } else {
                         System.out.println("Number(s) out the range, type again!");
                     }
-                    System.out.println(currentPlayer.getPlayerName() + " moved to (" + row + ", " + col + ")");
+                    System.out.println("(" + currentPlayer.getPlayerName() + ") moved to (" + (row + 1) + ", " + (col + 1) + ")");
                     if (board.checkWin(currentPlayer)) {
                         board.printMatrix();
                         System.out.println("Player " + currentPlayer.getPlayerName() + " wins!");

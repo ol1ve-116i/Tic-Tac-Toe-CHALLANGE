@@ -30,7 +30,7 @@ public class Board {
             }
             System.out.println();
             if ( i < 2){
-                System.out.println("--------------");
+                System.out.println("-------------");
             }
         }
         System.out.println();
@@ -47,7 +47,7 @@ public class Board {
     public void printHeader(){
         System.out.print(" ");
         for (int i = 0; i < LENGTH; i++){
-            System.out.print(" " + (i + 1) + "   ");
+            System.out.print(" " + (i + 1) + "  ");
         }
         System.out.println();
     }
